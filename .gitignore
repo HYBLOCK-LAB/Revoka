@@ -1,0 +1,11 @@
+
+docs/week1/html/
+docs/week2/html/
+docs/week3/html/
+docs/week4/html/
+
+# for macOS
+.DS_Store
+
+# for VSCode
+.vscode/
