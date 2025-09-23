@@ -52,7 +52,7 @@
 <p>이더리움은 원래 범용 프로그래밍 언어를 통해 블록체인 기반의 다양한 가능성을 실현하기 위해 고안되었습니다. 그 범위는 에스크로 거래, 인출 제한, 금융 계약, 갬블링 시장 등 다양합니다. **튜링 완전(Turing Complete)**한 프로그래밍 언어를 지원함으로써, 어떠한 형태의 거래나 기능도 **스마트 계약(Smart Contracts)**을 통해 자유롭게 구현할 수 있게 되었습니다. 이로써, 단순한 암호화폐를 넘어서, 복잡한 계약과 거래를 실행할 수 있는 강력한 플랫폼이 탄생하게 된 것입니다.</p>
 <p>하지만, 이더리움이 처음 의도한 것보다 더 큰 가능성을 열게 된 사실은 그 자체가 하나의 **세계적 컴퓨터(World Computer)**처럼 동작한다는 점입니다. 이더리움의 스마트 컨트랙트는 분산화된 네트워크에서 자동으로 실행되는 프로그램으로, 중개자 없이 신뢰할 수 있는 거래를 가능하게 합니다. 이 시스템을 이해하고 스마트 컨트랙트를 개발하는 것은 이더리움의 잠재력을 최대한 활용하는 데 매우 중요한 부분입니다.</p>
 <h2 is-upgraded>상태(World State)</h2>
-<p class="image-container"><img alt="EVM" src="img/28eb1b88f58eafd.png"></p>
+<p class="image-container"><img alt="EVM" src="img\\28eb1b88f58eafd.png"></p>
 <p>이러리움은 트랜잭션 기반의 state machine입니다. 이더리움 상에 저장되어 있는 정보를 상태(World State)라 생각하면 됩니다. 이를 트랜잭션을 통해 계산하고 그 결과를 상태에 반영할 수 있습니다. 상태는 주소와 계좌 상태를 매핑한 형태로 표현되며, 이 상태 정보의 머클 루트도 블록 헤더에 포함됩니다. 이 루트는 Merkle Patricia Tree로 구성되며, 이 구조는 각 주소와 관련된 계좌 정보(잔액, 스마트 계약 상태 등)를 효율적으로 관리합니다. World State의 머클 루트는 블록이 생성될 때의 시스템 상태를 나타내며, 이 해시값은 블록의 유효성을 검증하는 데 사용됩니다.</p>
 <h2 is-upgraded>트랜잭션(Transactions)</h2>
 <p>트랜잭션(Transaction)은 네트워크 상에서 데이터를 전송하거나 스마트 계약을 실행하는 단위입니다. 이더리움의 상태를 변경하거나 쿼리하는 작업을 포함합니다. 트랜젝션은 행위자(actor)의 서명이 된 채로 제출됩니다. 각 블록에는 여러 트랜잭션이 포함됩니다. 이 트랜잭션들은 블록 안에서 머클 트리(Merkle Tree)로 구성되고, 그 머클 루트는 블록 헤더에 저장됩니다. 머클 트리는 트랜잭션들의 해시값을 이진 트리 형태로 합쳐나가며, 트랜잭션들의 무결성을 보장하고, 효율적으로 트랜잭션을 검증할 수 있게 해줍니다.</p>
@@ -62,7 +62,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="EVM(Ethereum Virtual Machine)" duration="0">
-        <p class="image-container"><img alt="EVM" src="img/e63221f86b9b235.png"></p>
+        <p class="image-container"><img alt="EVM" src="img\\e63221f86b9b235.png"></p>
 <h3 is-upgraded>Storage</h3>
 <p>블록체인에 영구적으로 저장되는 데이터입니다. 스토리지는 키(Key)와 값(Value) 쌍으로 이루어진 구조를 가집니다. 각 키와 값의 크기는 32byte입니다. 주로 함수 외부에 정의 된 변수, 함수와 같은 스마트 컨트랙트의 주요 정보가 저장되며 영속적입니다 따라서 가스비가 가장 비쌉니다.</p>
 <h3 is-upgraded>Memory</h3>
@@ -74,7 +74,7 @@
 <h2 is-upgraded>가스</h2>
 <p>컴퓨터에서 연산을 하면 비용이 들어갑니다. 이더리움도 마찬가지입니다. 이더리움에선 가스라는 수수료를 도입해 이더리움 네트워크의 보안을 유지합니다. 네트워크에서 실행되는 모든 연산에 대해 수수료를 부과함으로써 악의적인 행위자가 네트워크에 스팸을 보내는 것을 방지합니다. 코드에서 우발적이거나 악의적인 무한 루프 또는 기타 연산 낭비를 방지하기 위해 각 트랜잭션은 사용할 수 있는 코드 실행 단계 수에 제한을 두어야 합니다. 연산의 기본 단위는 &#34;가스&#34;입니다.</p>
 <h3 is-upgraded>단위</h3>
-<p>가스 요금은 이더리움의 기본 화폐인 이더(ETH)로 지불해야 합니다. 가스 가격은 일반적으로 ETH의 단위인 gwei로 표시됩니다. 1 gwei는 ETH의 10억분의 1(0.000000001 ETH 또는 10-9 ETH)에 해당 합니다. 예를 들어, 가스 비용이 0.000000001 이더라고 말하는 대신 가스 비용이 1gwei라고 말할 수 있습니다.</p>
+<p>가스 요금은 이더리움의 기본 화폐인 이더(ETH)로 지불해야 합니다. 가스 가격은 일반적으로 ETH의 단위인 gwei로 표시됩니다. 1 gwei는 ETH의 10억분의 1( 10-9 ETH)에 해당 합니다.</p>
 <p><code>gwei</code>는 <code>giga-wei</code>의 줄임말로, <code>10<sup>9</sup> wei</code>를 뜻합니다. 1gwei는 10wei와 같습니다. wei은 ETH의 최소 단위입니다.</p>
 <h3 is-upgraded>가스비</h3>
 <p>트랜잭션을 제출할 때 지불할 가스량을 설정할 수 있습니다. 특정 가스량을 제시하면 트랜잭션이 다음 블록에 포함되도록 입찰하는 것입니다. 가스량을 너무 적게 제시하면 검증자가 트랜잭션을 포함할 가능성이 낮아져 트랜잭션이 늦게 실행되거나 전혀 실행되지 않을 수 있습니다. 가스량을 너무 많이 제시하면 ETH를 낭비할 수 있습니다. 지불해야하는 가스량을 예상하는 것이 스마트 컨트랙트를 실행하고 비용관리하는데 있어 도움이 됩니다.</p>
@@ -329,7 +329,202 @@
       </google-codelab-step>
     
       <google-codelab-step label="스마트 컨트랙트(Smart Contract)" duration="15">
-        
+        <h2 is-upgraded>Smart Contract Lifecycle</h2>
+<p>Smart Contract는 작성, 컴파일, 배포, 실행의 과정을 거치게 됩니다. 주요 흐름은 아래의 그림과 같습니다.</p>
+<p class="image-container"><img alt="Complie" src="img\\22902fa5579940be.png"></p>
+<h3 is-upgraded>작성</h3>
+<p>개발자는 Solidity, Vyper와 같은 스마트 컨트랙트 언어를 사용하여 코드를 작성합니다. 이 단계에서는 계약의 목적, 데이터 구조, 상태 변수, 함수 등을 정의합니다. 예를 들어, 토큰 발행(ERC-20), 투표 시스템, 라이선스 관리와 같은 비즈니스 로직을 코드로 표현합니다. 이 단계에서 컨트랙트는 아직 단순한 소스 코드일 뿐, 블록체인과 연결되지 않았습니다.</p>
+<h3 is-upgraded>컴파일</h3>
+<p>작성된 Solidity 코드는 <strong>Solidity Compiler</strong>를 통해 Btyecode와 ABI(Application Binary Interface)로 변환됩니다.</p>
+<p>바이트코드(Bytecode)는 EVM 위에서 실제로 실행되는 코드입니다. Contract transaction의 data 필드에 그대로 들어가게 됩니다. 컨트랙트가 실행될 때 이 data 필드의 Bytecode를 읽어와 실행되게 됩니다.</p>
+<p>ABI는 외부 애플리케이션이 컨트랙트 함수를 호출할 때 사용하는 인터페이스입니다. ABI는 컨트랙트의 구조를 보여주며 외부 애플리케이션에서 컨트랙트의 함수를 호출하거나 데이터를 얻고자 하기 위해 사용됩니다. ABI에 정의된 함수에 대한 정보를 이용해 function selector를 구하고 message transaction(함수 호출 트랜잭션)의 앞에 function selector를 넣어 해당 함수나 데이터의 Btyecode의 위치를 얻어 실행가능하도록 해줍니다.</p>
+<p>function selector는 4byte로 구성되며 함수의 정보(함수명, parameter의 type)을 Keccack256로 함수의 서명정보를 해시하여 빅 엔디안 방식으로 기술했을 시, 첫 번째 4byte입니다.</p>
+<p>컴파일된 컨트랙트는 function selector로 분기처리하는 로직을 가지고 있습니다. 즉, function Selector 생성 규칙은 결정론적입니다. 이는 아래의 컴파일 전 컨트랙트와 컴파일된 컨트랙트를 통해 확인할 수 있습니다.</p>
+<pre><code language="language-solidity" class="language-solidity">// SPDX-License-Identifier: GPL-3.0
+pragma solidity &gt;=0.5.0 &lt;0.9.0;
+contract C {
+    function one() public pure returns (uint) {
+        return 1;
+    }
+}
+</code></pre>
+<pre><code language="language-asm" class="language-asm">======= contract.sol:C =======
+EVM assembly:
+    /* &#34;contract.sol&#34;:0:86  contract C {... */
+  mstore(0x40, 0x80)    // free memory pointer 초기화
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  // 배포 시 ETH를 보냈다면 revert (non-payable 생성자이기 때문)
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy          // sub_0(=런타임 코드) 바이트를 0x00에 복사
+  0x00
+  return            // 복사한 바이트들을 반환 =&gt; 이게 컨트랙트의 &#39;런타임 코드&#39;가 됨
+stop
+
+sub_0: assembly {
+        /* &#34;contract.sol&#34;:0:86  contract C {... */
+      mstore(0x40, 0x80)    // free memory pointer 초기화
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00에                // 함수 호출에 ETH 보내면 revert (모든 함수가  non-payable하기 때문)
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))  // calldata 길이가 4바이트 미만이면 tag_2로(=revert)
+      shr(0xe0, calldataload(0x00))         // 앞 4바이트 추출 (224비트 우측 쉬프트)
+      dup1
+      0x901717d1                            // Function Selector와 비교
+      eq
+      tag_3
+      jumpi
+    tag_2:
+    // Selecter 매칭되는 함수가 없으므로 revert (fallback 없음)
+      0x00
+      dup1
+      revert
+        /* &#34;contract.sol&#34;:17:84  function one() public pure returns (uint) {... */
+    tag_3:
+      tag_4
+      tag_5
+      jump  // 내부 점프: tag_5(본문) 실행 후, tag_4(리턴 인코딩)로 복귀
+    tag_4:
+      mload(0x40)
+      tag_6
+      swap2
+      swap1
+      tag_7
+      jump          // 결과를 ABI로 써서 반환하는 유틸리티 경로
+    tag_6:
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return        // 메모리 [ptr .. ptr+len) 을 반환
+    tag_5:
+        /* &#34;contract.sol&#34;:53:57  uint */
+      0x00
+        /* &#34;contract.sol&#34;:76:77  1 */
+      0x01
+        /* &#34;contract.sol&#34;:69:77  return 1 */
+      swap1
+      pop
+        /* &#34;contract.sol&#34;:17:84  function one() public pure returns (uint) {... */
+      swap1
+      jump  // out
+        /* &#34;#utility.yul&#34;:7:125   */
+    tag_10:
+        /* &#34;#utility.yul&#34;:94:118   */
+      tag_12
+        /* &#34;#utility.yul&#34;:112:117   */
+      dup2
+        /* &#34;#utility.yul&#34;:94:118   */
+      tag_13
+      jump  // in
+    tag_12:
+        /* &#34;#utility.yul&#34;:89:92   */
+      dup3
+        /* &#34;#utility.yul&#34;:82:119   */
+      mstore
+        /* &#34;#utility.yul&#34;:72:125   */
+      pop
+      pop
+      jump  // out
+        /* &#34;#utility.yul&#34;:131:353   */
+    /* ABI 인코딩 유틸 */
+    tag_7:
+      // 반환 버퍼 시작/끝 계산 (ptr, ptr+32)
+      // &#39;uint&#39; 단일 값이므로 32바이트 슬롯에 값 저장
+      0x00
+        /* &#34;#utility.yul&#34;:262:264   */
+      0x20
+        /* &#34;#utility.yul&#34;:251:260   */
+      dup3
+        /* &#34;#utility.yul&#34;:247:265   */
+      add
+        /* &#34;#utility.yul&#34;:239:265   */
+      swap1
+      pop
+        /* &#34;#utility.yul&#34;:275:346   */
+      tag_15
+        /* &#34;#utility.yul&#34;:343:344   */
+      0x00
+        /* &#34;#utility.yul&#34;:332:341   */
+      dup4
+        /* &#34;#utility.yul&#34;:328:345   */
+      add
+        /* &#34;#utility.yul&#34;:319:325   */
+      dup5
+        /* &#34;#utility.yul&#34;:275:346   */
+      tag_10
+      // 정리 후 상위 호출 지점으로 복귀
+      jump  // in
+    tag_15:
+        /* &#34;#utility.yul&#34;:229:353   */
+      swap3
+      swap2
+      pop
+      pop
+      jump  // out
+        /* &#34;#utility.yul&#34;:359:436   */
+    tag_13:
+      0x00
+        /* &#34;#utility.yul&#34;:425:430   */
+      dup2
+        /* &#34;#utility.yul&#34;:414:430   */
+      swap1
+      pop
+        /* &#34;#utility.yul&#34;:404:436   */
+      swap2
+      swap1
+      pop
+      jump  // out
+
+    auxdata: 0xa2646970667358221220a5874f19737ddd4c5d77ace1619e5160c67b3d4bedac75fce908fed32d98899864736f6c637827302e382e342d646576656c6f702e323032312e332e33302b636f6d6d69742e65613065363933380058
+}
+</code></pre>
+<aside class="warning"><p><strong>Warning:</strong> ABI와 Function Selector는 코어 이더리움 프로토콜에 포함되지는 않습니다.</p>
+</aside>
+<h3 is-upgraded>배포</h3>
+<p>컴파일된 바이트코드를 Ethereum 네트워크에 트랜잭션 형태로 전송하여 Contract address(컨트랙트 계정)을 생성합니다. 이때 발생하는 가스비(Gas Fee)는 네트워크 검증자에게 지급됩니다.</p>
+<p>Contract Address는 컨트랙트가 위치할 주소입니다. Contract Address는 배포자(sender)의 주소와 해당 주소의 nonce를 이용해 <strong>결정론적</strong> 생성됩니다.</p>
+<p><code>keccak256( RLP.encode([sender, nonce]) )[12:]</code></p>
+<p>여기서 마지막 20byte가 새로운 컨트랙트의 주소가 됩니다. 같은 sender + nonce 조합은 재사용될 수 없으므로, 네트워크 상에서 주소 충돌은 발생하지 않습니다. 또한, 이미 존재하는 주소에 새로운 컨트랙트를 덮어쓸 수는 없습니다. Address는 ethereum network에 올라가므로 한 번 생성된 contract address는 변경할 수 없습니다. Contract를 실행하기 위해서 message transaction의 to에 contract address값을 넣습니다.</p>
+<aside class="special"><p><strong>Tip: Ethereum Account Type</strong></p>
+<p>Ethereum에는 **EOA(Externally Owned Account)**와 Contract Account 두 종류의 계정이 있습니다.</p>
+<p>EOA는 개인 키로 서명한 트랜잭션만 보낼 수 있고, Contract Account는 code와 storage, balance, contract address를 갖고 있으며, 외부 트랜잭션이나 다른 컨트랙트의 호출이 있을 때만 동작합니다.</p>
+</aside>
+<h3 is-upgraded>실행</h3>
+<p>배포가 끝난 후에는 누구나 컨트랙트 주소를 이용해 call 또는 transaction을 보낼 수 있습니다. 단순 조회 함수(view/pure)는 가스를 소모하지 않고 읽을 수 있으며, 상태 변경 함수는 반드시 가스를 내고 트랜잭션을 보내야 합니다. 배포가 완료되면 해당 컨트랙트는 고유한 **주소(Address)**를 가지며, 누구나 이 주소를 통해 접근할 수 있습니다.</p>
+<h2 is-upgraded>결정론적 프로그램</h2>
+<p>결정론적 프로그램은 같은 입력에 대해 항상 같은 출력을 보장하는 프로그램을 말합니다. 실행 환경이나 실행 시점, 실행하는 주체가 달라도 결과가 변하지 않아야 합니다. 그러므로 다른 다른 사용자가 스마트 컨트랙트를 실행하더라도 결과는 항상 동일하게 나타납니다.</p>
+<pre><code language="language-solidity" class="language-solidity">// 결정론적: 같은 입력(a, b)이면 언제나 같은 출력
+function add(uint a, uint b) public pure returns (uint) {
+    return a + b;
+}
+
+// 비결정적: 실행 시점(timestamp)마다 달라짐
+function badRandom() public view returns (uint) {
+    return uint(keccak256(abi.encodePacked(block.timestamp, msg.sender)));
+}
+</code></pre>
+<p>이러한 특성은 컴파일 단계에서 컨트랙트의 가스 사용량과 동작 방식을 정확히 측정할 수 있습니다.</p>
+
 
       </google-codelab-step>
     
@@ -498,6 +693,7 @@ contract FixedByteArray {
 <li><a href="https://ethereum.org/ko/developers/docs" target="_blank">Ethereum development documentation</a></li>
 <li><a href="https://ethereum.github.io/yellowpaper/paper.pdf" target="_blank">Ethereum Yellow Paper</a></li>
 <li><a href="https://solidity-kr.readthedocs.io/ko/latest/index.html" target="_blank">Solidity 공식 문서 한글 번역</a></li>
+<li><a href="https://soliditylang.org/" target="_blank">Solidity 공식 문서 </a></li>
 <li><a href="https://archive.devcon.org/devcon-1/ethereum-for-dummies/?tab=YouTube" target="_blank">Ethereum for Dummies</a>: 2015년 Ethereum Dev Con에서 진행했던 Dr. Gavin Wood(Ethereum&#39;s CTO)의 이더리움 소개 발표</li>
 </ol>
 
