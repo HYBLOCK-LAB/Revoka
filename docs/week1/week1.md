@@ -360,7 +360,7 @@ contract Hello {
 
 #### 참조 타입 자료형
 
-참조 타입은 데이터를 다른 위치에 저장하고 그 위치를 값으로 가집니다. 보통 메모리나 스토리지에 저장할 수 있습니다. 위치에 따라 가스비가 크게 달라질 수 있으므로 주의하여 사용하여야 합니다.
+참조 타입은 데이터를 다른 위치에 저장하고 그 위치를 값으로 가집니다. 보통 메모리나 스토리지에 저장할 수 있습니다. 위치에 따라 가스비가 크게 달라질 수 있으므로 주의하여 사용하여야 합니다. 동적 크기를 가지는 `string`나 `bytes`가 여기에 해당하고 밑에서 설명할 배열 / 매핑 / 구조체도 참조 타입 자료형입니다.
 
 모든 복합 타입은 자신이 메모리나 스토리지 중 어디에 저장되었는지를 나타내는 "데이터 위치"가 추가적으로 존재합니다. 컨텍스트에 따라 항상 기본값이 존재하지만, 타입에 스토리지 나 메모리 를 추가하여 재정의 할 수 있습니다. 함수 매개 변수(반환 매개 변수도 포함)의 기본값은 메모리 이고, 지역 변수의 기본값은 스토리지 이며 상태 변수의 위치는 스토리지 로 강제되어 있습니다.
 
@@ -368,9 +368,149 @@ contract Hello {
 
 데이터 위치는 변수가 할당되는 방식을 변경하기 때문에 중요합니다: assignments between storage and memory and also to a state variable (even from other state variables) always create an independent copy. Assignments to local storage variables only assign a reference though, and this reference always points to the state variable even if the latter is changed in the meantime. 반면, 메모리에 저장된 참조 타입에서 다른 메모리에 저장된 참조 타입을 할당할땐 복사본을 만들지 않습니다.
 
+### 자료형: 배열 / 매핑 / 구조체
+
+1. 배열 (Array)
+
+Solidity 배열은 정적 배열과 동적 배열로 나눌 수 있습니다.
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract ArrayExample {
+    uint[3] public fixedArray = [1, 2, 3]; // 정적 배열
+    uint[] public dynamicArray; // 동적 배열
+
+    function addElement(uint _val) public {
+        dynamicArray.push(_val); // 배열 끝에 값 추가
+    }
+
+    function getLength() public view returns (uint) {
+        return dynamicArray.length; // 배열 길이 반환
+    }
+}
+```
+
+2. 매핑 (Mapping)
+
+매핑은 키-값 쌍으로 데이터를 저장합니다. 배열과 달리 순회가 불가능하며, 오직 특정 키를 통해서만 접근할 수 있습니다. 주로 storage에서 사용되며 존재 여부를 조회하기 위해 사용합니다.(e.g. 특정 사용자 잔액 조회)
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract MappingExample {
+    mapping(address => uint) public balances;
+
+    function setBalance(uint _amount) public {
+        balances[msg.sender] = _amount; // 호출자의 잔액 기록
+    }
+
+    function getBalance(address _addr) public view returns (uint) {
+        return balances[_addr]; // 특정 주소의 잔액 확인
+    }
+
+}
+```
+
+3. 구조체 (Struct)
+
+구조체는 여러 데이터를 묶어서 하나의 사용자 정의 자료형을 만드는 방법입니다.
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract StructExample {
+    // Student 구조체
+    struct Student {
+        string name;
+        uint age;
+        bool isEnrolled;
+    }
+
+    Student public student;
+
+    function setStudent(string memory _name, uint _age, bool _enrolled) public {
+        student = Student(_name, _age, _enrolled);
+    }
+
+    function getStudent() public view returns (string memory, uint, bool) {
+        return (student.name, student.age, student.isEnrolled);
+    }
+
+}
+```
+
 ### 함수 기본: 가시성/상태성/리턴
 
-### 자료형: 배열 / 매핑 / 구조체
+Solidity 함수는 크게 가시성(visibility), 상태성(state mutability), 리턴(return) 세 가지 속성으로 구분됩니다.
+
+#### 1. 가시성 (Visibility)
+
+함수가 어디에서 호출될 수 있는지를 결정합니다.
+
+- `public`: 누구나 호출 가능 (내부, 외부 모두)
+- `external`: 외부에서만 호출 가능 (컨트랙트 내부에서는 this.funcName() 형태로 가능)
+- `internal`: 컨트랙트 내부 및 상속받은 컨트랙트에서만 호출 가능
+- `private`: 정의된 컨트랙트 내부에서만 호출 가능
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract VisibilityExample {
+    uint private number = 10;
+
+    function setNumber(uint _num) public {  // 누구나 호출 가능
+        number = _num;
+    }
+
+    function getNumber() internal view returns (uint) { // 내부에서만 사용
+        return number;
+    }
+
+}
+```
+
+#### 2. 상태성 (State Mutability)
+
+함수가 블록체인 상태를 변경하는지 여부를 나타냅니다. 상태성을 나타내는 키워드는 가시성 지시자 뒤에 옵니다. 기본적으로 상태 지시자가 없으면 상태를 변경할 수 있습니다.
+
+- pure: 블록체인 상태를 읽지도, 변경하지도 않음 (순수 계산 함수)
+- view: 블록체인 상태를 읽지만 변경하지는 않음
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract StateExample {
+uint public value = 100;
+
+    function getValue() public view returns (uint) { // 상태 읽기
+        return value;
+    }
+
+    function add(uint a, uint b) public pure returns (uint) { // 순수하게 계산 역할
+        return a + b;
+    }
+
+    function setValue(uint _val) public { // 상태 변경 가능
+        value = _val;
+    }
+
+}
+```
+
+#### 3. 리턴 (Returns)
+
+Solidity 함수는 여러 개의 값을 반환할 수 있습니다. returns 뒤에 반환하는 값의 타입을 차례로 적어줍니다.
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract ReturnExample {
+    function getData() public pure returns (uint, string memory) {
+        return (42, "Hello");
+    }
+}
+```
 
 ## 환경 설정 및 테스트
 
