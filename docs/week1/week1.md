@@ -602,6 +602,65 @@ contract Hello {
 
 Duration: 30
 
+### 리믹스(Remix IDE)
+
+[Remix IDE](https://remix.ethereum.org/)는 Ethereum기반의 스마트 컨트랙트를 작성·컴파일·배포·디버깅할 수 있는 **웹 기반 통합 개발 환경(IDE)** 입니다.
+
+#### 1. Solidity 파일 작성
+
+왼쪽 패널에서 contracts 디렉토리 생성해주세요
+
+Hello.sol 파일 생성 후 아래의 코드를 작성해주세요
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Hello {
+string public message = "Hello, Remix!";
+
+    function setMessage(string memory _msg) public {
+        message = _msg;
+    }
+
+}
+```
+
+<aside class="positive"><p><strong>Tip: </strong>public 상태 변수는 자동으로 getter가 생성됩니다.</p></aside>
+
+#### 2. 컴파일
+
+- 왼쪽 Solidity Compiler 탭에서 버전 선택을 선택해주세요. (0.8.x을 추천합니다.)
+- Compile Hello.sol 버튼을 클릭해주세요
+- 컴파일 완료 후 하단의 `Compilation Details` 버튼을 눌러 ABI/바이트코드 확인 가능합니다.
+- 컴파일 에러가 나면 pragma 버전(예: ^0.8.0)과 컴파일러 버전이 호환되는지 확인하세요.
+
+#### 3. 배포
+
+- Deploy & Run Transactions 탭을 선택합니다.
+- 환경(Environment) 선택을 택해주세요. 환경은 다음과 같습니다.
+  - JavaScript VM → 브라우저 내 임시 블록체인
+  - Injected Provider: 크롬 extention 기반의 외부 지갑(e.g. MetaMask)
+  - Web3 Provider → 실제 네트워크 RPC 노드
+
+Deploy 버튼을 클릭하여 컨트랙트 배포합니다.
+
+#### 4. 실행 및 테스트
+
+- 배포가 완료되면 왼쪽 하단 Deployed Contracts에 인스턴스가 표시됩니다.
+- message(public 변수), setMessage(함수)가 자동으로 UI 버튼으로 생성됩니다.
+- message 버튼 클릭 → 초기값 확인
+- `setMessage("Hi!")` 호출 → 트랜잭션 전송 후 message 값 변경 확인
+- 가스비/실행 로그는 우측 콘솔에서 확인할 수 있습니다.
+
+#### 5. 디버깅 & 분석
+
+실행된 트랜잭션 선택 후 Debugger에서 단계별 추적
+
+Gas 비용, 메모리 사용량, 스토리지 상태 확인 가능
+
+### HardHat
+
 ## 프로젝트 준비
 
 Duration: 14
