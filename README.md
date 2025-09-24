@@ -24,4 +24,4 @@
 ### 학습 자료
 
 - 학습 자료로 [Google Codelab](https://codelabs.developers.google.com)을 사용합니다.
-- [github pages](https://githob.developers.google.com)로 배포됩니다.
+- [github pages](https://hyblock-lab.github.io/Revoka/)로 배포됩니다.
